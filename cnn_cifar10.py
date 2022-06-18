@@ -143,7 +143,7 @@ interpreter.invoke()
 
 for tensor_details in interpreter.get_tensor_details():
     if 'Conv2D' in tensor_details['name'] or 'conv2d' in tensor_details['name']:
-        tensor_name = tensor_details['name'].replace(';', '_').replace('/', '_').replace(':', '_')
+        tensor_name = tensor_details['name'].strip().replace(';', '_').replace('/', '_').replace(':', '_')
         tensor = interpreter.get_tensor(tensor_details["index"])
         np.save(os.path.join(intermediate_output_dirname, f" {tensor_name}"), tensor)
 
