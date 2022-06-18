@@ -87,10 +87,10 @@ def make_hook(name):
     return extract_output
 
 # Define layers to extract output
-target_model.flatten.register_forward_hook(make_hook(f'{output_modelname}_{model_info}_flatten'))
-target_model.lin1.register_forward_hook(make_hook(f'{output_modelname}_{model_info}_lin1'))
-target_model.lin2.register_forward_hook(make_hook(f'{output_modelname}_{model_info}_lin2'))
-target_model.lin3.register_forward_hook(make_hook(f'{output_modelname}_{model_info}_lin3'))
+target_model.flatten.register_forward_hook(make_hook(f'{output_modelname}_flatten'))
+target_model.lin1.register_forward_hook(make_hook(f'{output_modelname}_lin1'))
+target_model.lin2.register_forward_hook(make_hook(f'{output_modelname}_lin2'))
+target_model.lin3.register_forward_hook(make_hook(f'{output_modelname}_lin3'))
 
 # Forward propagation by using test dataset provided by modelfile
 test(test_dataloader, target_model, loss_fn)
@@ -98,8 +98,8 @@ test(test_dataloader, target_model, loss_fn)
 # Extracting parameters
 for param_name in target_model.state_dict():
     if '._packed_params._packed_params' in param_name:
-        print(f"extracting {output_modelname}_{model_info}_{param_name.split('.')[0]}_weight")
-        features[f"{output_modelname}_{model_info}_{param_name.split('.')[0]}_weight"] = target_model.state_dict()[param_name][0].int_repr().detach()
+        print(f"extracting {output_modelname}_{param_name.split('.')[0]}_weight")
+        features[f"{output_modelname}_{param_name.split('.')[0]}_weight"] = target_model.state_dict()[param_name][0].int_repr().detach()
 
 print(f"\n{len(features)} data extracted!")
 
