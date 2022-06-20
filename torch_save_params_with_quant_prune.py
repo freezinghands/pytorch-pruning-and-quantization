@@ -28,12 +28,12 @@ model.load_state_dict(torch.load(os.path.join(model_path, model_name)))  # load 
 prune_amount = 0.3  # pruning amount
 
 # Define layers to prune
-prune.random_unstructured(model.lin1, "weight", amount=prune_amount)
-prune.random_unstructured(model.lin1, "bias",   amount=prune_amount)
-prune.random_unstructured(model.lin2, "weight", amount=prune_amount)
-prune.random_unstructured(model.lin2, "bias",   amount=prune_amount)
-prune.random_unstructured(model.lin3, "weight", amount=prune_amount)
-prune.random_unstructured(model.lin3, "bias",   amount=prune_amount)
+prune.l1_unstructured(model.lin1, "weight", amount=prune_amount)
+prune.l1_unstructured(model.lin1, "bias",   amount=prune_amount)
+prune.l1_unstructured(model.lin2, "weight", amount=prune_amount)
+prune.l1_unstructured(model.lin2, "bias",   amount=prune_amount)
+prune.l1_unstructured(model.lin3, "weight", amount=prune_amount)
+prune.l1_unstructured(model.lin3, "bias",   amount=prune_amount)
 
 print("pruning completed")
 
